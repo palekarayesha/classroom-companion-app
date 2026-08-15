@@ -1,0 +1,9 @@
+body { font-family: "Segoe UI", Roboto, Arial, sans-serif; background:#f8faff; }
+.navbar { background: linear-gradient(90deg, #0d6efd, #0a58ca); }
+.card { border-radius: 12px; box-shadow: 0 6px 18px rgba(13,110,253,0.08); transition: transform 0.15s ease; }
+.card:hover { transform: translateY(-4px); }
+.sidebar { background:#f0f6ff; height:100%; }
+.btn-primary { background:#0d6efd; border:none; border-radius:8px; }
+.form-control, .form-select { border-radius:8px; }
+.welcome-heading { font-size:2.2rem; font-weight:700; color:#0d6efd; }
+.welcome-img { max-width:100%; border-radius:12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }

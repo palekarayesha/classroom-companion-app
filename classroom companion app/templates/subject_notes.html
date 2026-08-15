@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Subject: {{ subject }}</h4>
+<ul class="list-group">
+  {% for r in rows %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ r[1] }}</strong><div class="small text-muted">By {{ r[2] }} • {{ r[3] }}</div>
+      </div>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('uploaded_file', filename=r[1]) }}">Open</a>
+    </li>
+  {% else %}
+    <li class="list-group-item">No notes for this subject yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

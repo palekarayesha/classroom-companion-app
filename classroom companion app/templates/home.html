@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>Welcome <b>{{ user.name }}</b></h2>
+    <p class="text-muted">Gharda Institute of Technology • Student Dashboard</p>
+  </div>
+  <div class="text-end">
+    <img src="{{ session.user.avatar if session.user.get('avatar') else url_for('static', filename='images/logo.png') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>📚 Notes</h5>
+      <p>Subject-wise notes. Students can upload. Admin can delete.</p>
+      <a href="{{ url_for('notes') }}" class="btn btn-outline-primary btn-sm">Open Notes</a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>📝 Assignments</h5>
+      <p>View assignments & download.</p>
+      <a href="{{ url_for('assignments') }}" class="btn btn-outline-primary btn-sm">Open</a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>❓ Quizzes</h5>
+      <p>Students can take quizzes once. Teachers create quizzes.</p>
+      <a href="{{ url_for('quizzes') }}" class="btn btn-outline-primary btn-sm">Open Quizzes</a>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-8">
+    <div class="card p-3 mb-3">
+      <h5>📣 Notices</h5>
+      {% for n in notices %}
+        <div class="mb-2">
+          <strong>{{ n[1] }}</strong><br>
+          <small class="text-muted">{{ n[2] }}</small>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="card p-3">
+      <h5>🎉 Events</h5>
+      {% for ev in events %}
+        <div class="mb-2"><strong>{{ ev[1] }}</strong><br><small class="text-muted">{{ ev[2] }}</small></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h6>AI Chatbot</h6>
+      <div id="ai-area">
+        <div id="ai-output" class="small text-muted">Ask your doubts — placeholder if AI not configured.</div>
+        <div class="input-group mt-2">
+          <input id="ai-q" class="form-control form-control-sm" placeholder="Type a question...">
+          <button id="ai-send" class="btn btn-primary btn-sm">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3">
+      <h6>Attendance (admin updates)</h6>
+      <p class="small text-muted">Admin uploads attendance sheet which students cannot download or edit.</p>
+      <a href="{{ url_for('attendance') }}" class="btn btn-outline-primary btn-sm">Attendance</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('ai-send').addEventListener('click', async () => {
+  const q = document.getElementById('ai-q').value;
+  if (!q) return;
+  const res = await fetch('{{ url_for("ai_chat") }}', {
+    method:'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({q})
+  });
+  const j = await res.json();
+  document.getElementById('ai-output').innerText = j.answer;
+});
+</script>
+{% endblock %}

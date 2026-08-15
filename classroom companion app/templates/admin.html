@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Admin Panel</h4>
+<div class="row">
+  <div class="col-md-6">
+    <h6>Create Notice</h6>
+    <form method="post">
+      <input type="hidden" name="action" value="notice">
+      <div class="mb-2"><input name="title" class="form-control" placeholder="Title"></div>
+      <div class="mb-2"><textarea name="subtitle" class="form-control" placeholder="Subtitle"></textarea></div>
+      <button class="btn btn-primary btn-sm">Create Notice</button>
+    </form>
+
+    <hr>
+    <h6>Create Event</h6>
+    <form method="post">
+      <input type="hidden" name="action" value="event">
+      <div class="mb-2"><input name="title" class="form-control" placeholder="Event Title"></div>
+      <div class="mb-2"><input name="date" class="form-control" placeholder="Date (YYYY-MM-DD)"></div>
+      <div class="mb-2"><textarea name="subtitle" class="form-control" placeholder="Subtitle"></textarea></div>
+      <button class="btn btn-primary btn-sm">Create Event</button>
+    </form>
+  </div>
+
+  <div class="col-md-6">
+    <h6>Existing Notices</h6>
+    {% for n in notices %}
+      <div class="mb-2"><b>{{ n[1] }}</b><div class="small text-muted">{{ n[2] }}</div></div>
+    {% endfor %}
+    <hr>
+    <h6>Existing Events</h6>
+    {% for e in events %}
+      <div class="mb-2"><b>{{ e[1] }}</b><div class="small text-muted">{{ e[2] }} • {{ e[3] }}</div></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

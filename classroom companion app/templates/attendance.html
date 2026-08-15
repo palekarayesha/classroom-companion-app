@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Attendance Upload</h4>
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-2">
+    <input type="file" name="attendance_file" accept=".xlsx,.xls" required>
+  </div>
+  <button class="btn btn-primary btn-sm">Upload Attendance</button>
+</form>
+
+<hr>
+<h6>Recent uploads (students cannot download)</h6>
+<ul class="list-group">
+  {% for u in uploads %}
+    <li class="list-group-item">
+      {{ u[1] }} • uploaded at {{ u[2] }} by {{ u[3] }}
+    </li>
+  {% else %}
+    <li class="list-group-item">No uploads yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

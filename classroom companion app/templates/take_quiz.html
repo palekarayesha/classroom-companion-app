@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Quiz: {{ quiz[1] }}</h4>
+<div class="card p-3 mb-3">
+  <pre style="white-space:pre-wrap;">{{ quiz[2] }}</pre>
+</div>
+
+<form method="post">
+  <div class="mb-2">
+    <!-- Simplified: allow teacher to instruct scoring or small numeric input -->
+    <label>Enter your score (if auto-scored by teacher):</label>
+    <input name="score" class="form-control" type="number" min="0" max="100" required>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

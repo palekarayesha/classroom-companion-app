@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>University Exam Timetable</h3>
+<ul class="list-group mb-3">
+  {% for item in schedule %}<li class="list-group-item"><strong>{{ item.date }}</strong> — {{ item.subject }}</li>{% endfor %}
+</ul>
+{% endblock %}

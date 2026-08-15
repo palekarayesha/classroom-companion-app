@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="mb-3">Assignments</h3>
+
+  {% if role in ['teacher', 'admin'] %}
+  <div class="card p-3 mb-3 shadow-sm">
+    <h5>Upload New Assignment</h5>
+    <form method="post" enctype="multipart/form-data">
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input name="title" class="form-control" placeholder="Assignment Title" required>
+        </div>
+        <div class="col-md-3">
+          <input name="details" class="form-control" placeholder="Assignment Details" required>
+        </div>
+        <div class="col-md-3">
+          <input type="date" name="due" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <input type="file" name="file" accept=".pdf,.docx" class="form-control" required>
+        </div>
+      </div>
+      <button class="btn btn-primary mt-3">Upload Assignment</button>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if assignments %}
+  <div class="list-group">
+    {% for a in assignments %}
+    <div class="list-group-item d-flex justify-content-between align-items-start flex-wrap">
+      <div>
+        <strong>{{ a[1] }}</strong>
+        <div class="small text-muted">{{ a[2] }}</div>
+        <div class="small">Due: {{ a[3] }}</div>
+        {% if a[4] %}
+          <a href="{{ url_for('uploaded_file', filename=a[4]) }}" target="_blank" class="btn btn-sm btn-outline-secondary mt-2">
+            📄 View File
+          </a>
+        {% endif %}
+      </div>
+      {% if role in ['teacher', 'admin'] %}
+      <a href="{{ url_for('assignments', delete=a[0]) }}" class="btn btn-sm btn-danger">Delete</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">No assignments available yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

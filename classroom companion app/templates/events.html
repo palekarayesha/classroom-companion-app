@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Events</h3>
+{% if user.role == 'admin' %}
+<form method="post" class="mb-3">
+  <input name="title" placeholder="Event title" class="form-control mb-2">
+  <input name="date" placeholder="Date" class="form-control mb-2">
+  <textarea name="description" placeholder="Description" class="form-control mb-2"></textarea>
+  <button class="btn btn-primary">Add Event</button>
+</form>
+{% endif %}
+<ul class="list-group">
+  {% for e in events %}<li class="list-group-item"><strong>{{ e.title }}</strong> — {{ e.date }} <div class="small">{{ e.description }}</div></li>{% endfor %}
+</ul>
+{% endblock %}
